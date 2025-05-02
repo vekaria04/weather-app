@@ -14,7 +14,7 @@
       <h3 class="card-title">Weather in {{ weatherData.name }}</h3>
       <p class="card-text">
         <strong>Temperature:</strong> {{ weatherData.main.temp }}°C<br />
-        <strong>Condition:</strong> {{ weatherData.weather[0].description }}
+        <strong>Condition:</strong> {{ weatherData.weather[0].description | titlecase }}
       </p>
     </div>
     <div id="map" style="height: 300px;"></div>

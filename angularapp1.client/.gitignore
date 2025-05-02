@@ -11,6 +11,9 @@
 npm-debug.log
 yarn-error.log
 
+# Don't track secret environment overrides
+src/environments/environment.ts
+c
 # IDEs and editors
 .idea/
 .project

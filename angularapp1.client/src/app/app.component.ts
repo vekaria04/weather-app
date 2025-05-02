@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   }
 
   searchWeatherFromHistory(city: string) {
-    this.city = city;
+    this.city = this.city.charAt(0).toUpperCase() + this.city.slice(1).toLowerCase();
     this.searchWeather();
   }
 
@@ -39,13 +39,28 @@ export class AppComponent implements OnInit {
   }
 
   searchWeather() {
+    if (!this.city.trim()) return;
+
+    // Capitalize first letter of the city
+    this.city = this.city.charAt(0).toUpperCase() + this.city.slice(1).toLowerCase();
+
     this.weatherService.getWeather(this.city).subscribe((data: WeatherResponse) => {
       this.weatherData = data;
+
+      // Save the search to backend
       this.weatherService.saveSearch(this.city).subscribe();
+
+      // Show the map
       this.initMap(data.coord.lat, data.coord.lon);
-      this.searchHistory.unshift(this.city);
+
+      // Add to history if not already present
+      if (!this.searchHistory.includes(this.city)) {
+        this.searchHistory.unshift(this.city);
+      }
+
+      // Clear input
       this.city = '';
-      this.initMap(data.coord.lat, data.coord.lon);
     });
   }
+
 }
