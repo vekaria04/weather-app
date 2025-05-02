@@ -1,0 +1,37 @@
+<div class="container py-5">
+  <h1 class="text-center mb-4">🌦️ Weather Lookup</h1>
+
+  <div class="input-group mb-4">
+    <input type="text"
+           class="form-control"
+           [(ngModel)]="city"
+           placeholder="Enter a city" />
+    <button class="btn btn-primary" (click)="searchWeather()">Search</button>
+  </div>
+
+  <div *ngIf="weatherData" class="card mb-4 shadow">
+    <div class="card-body">
+      <h3 class="card-title">Weather in {{ weatherData.name }}</h3>
+      <p class="card-text">
+        <strong>Temperature:</strong> {{ weatherData.main.temp }}°C<br />
+        <strong>Condition:</strong> {{ weatherData.weather[0].description }}
+      </p>
+    </div>
+    <div id="map" style="height: 300px;"></div>
+  </div>
+
+  <div *ngIf="searchHistory.length" class="card">
+    <div class="card-header">
+      <h5 class="mb-0">Search History</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let item of searchHistory"
+          class="list-group-item"
+          (click)="searchWeatherFromHistory(item)"
+          style="cursor: pointer;">
+        {{ item }}
+      </li>
+    </ul>
+  </div>
+</div>
+
